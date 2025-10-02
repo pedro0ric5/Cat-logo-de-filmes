@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>catalogo de filmes mais e filmes fase 1</title>
+    <link rel-"stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1> catalogo de filmes</h1>
+
+    <form id="cadastro-filmes">
+        <h2>adicionar novo filme</h2>
+        <div>
+            <label for="titulo">titulo do filme:</label>
+            <input type="text" id="titulo" required>
+        </div>
+        <div>
+            <label for="sinopse">sinopse:</label>
+            <textarea id="sinopse" required></textarea>
+        </div>
+        
+        <button type="submit">adicionar filme</button>
+    </form>
+
+    <hr>
+    <h2> minha lita de filmes</h2>
+    <div id="lista-filmes">
+        <p>nengum filme cadrastado ainda.</p>
+    </div>
+
+    <script>
+        //1. armazenamento de dados
+        //aray global que ira gaurdar todos os filmes como objetos
+        //ex:[{titulo: 'filme x', 'sinopse', 'sinopse y'}]
+        const catalogo=[];
+        
+        //2. captura de elementos do DOM (Document Object Model)
+        //capturamos os elementos html que vamos interagir, usando seus id's
+        const form = documen.getElementById('cadastro-filme')
+        const listaFilmesContainer = document.getElementById('lista-filmes')
+
+        function removerFilme(indice, elementoDOM) {
+            catalogo.splice(indice,1);
+
+            elementoDOM.remove();
+
+            if (catalogo.length ===0) {
+                listaFilmesCountainer.innerHTML = '<p>nenumfilme cadastrado ainda</p>';
+            }
+
+            console.log(`filme no indice ${indice} removido. catalogo atuallizado:` , catalogo);
+        }
+
+        function renderizarFilme(filme,indice) {
+            if (catalogo.length ===1) {
+                listaFilmesCountainer.innerHTML = '';
+            }
+
+            const filmeDiv = document.createElement('div');
+            filmeDiv.claslist.add('filme-item'); 
+
+            const tituloH3 = document.createElement('h3');
+            tituloH3.textContent = filme.sinopse;
+
+            const sinopseP = document.createElement('p');
+            sinopseP.tectContent = filme.sinopse;
+        }
+    </script>
+</body>
+</html>
