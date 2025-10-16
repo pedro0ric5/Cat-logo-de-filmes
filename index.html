@@ -10,35 +10,33 @@
 
     <h1> catalogo de filmes</h1>
 
+
+
     <form id="cadastro-filmes">
-        <h2>adicionar novo filme</h2>
+        <h2>adicionar novo filme(busca por api)</h2>
         <div>
             <label for="titulo">titulo do filme:</label>
             <input type="text" id="titulo" required>
-        </div>
-        <div>
-            <label for="sinopse">sinopse:</label>
-            <textarea id="sinopse" required></textarea>
         </div>
         
         <button type="submit">adicionar filme</button>
     </form>
 
     <hr>
+
     <h2> minha lita de filmes</h2>
+
     <div id="lista-filmes">
         <p>nengum filme cadrastado ainda.</p>
     </div>
 
     <script>
-        //1. armazenamento de dados
-        //aray global que ira gaurdar todos os filmes como objetos
-        //ex:[{titulo: 'filme x', 'sinopse', 'sinopse y'}]
+        const API_KEY = 'SUA_CHAVE_OMDB_AQUI';
+
         const catalogo=[];
         
-        //2. captura de elementos do DOM (Document Object Model)
-        //capturamos os elementos html que vamos interagir, usando seus id's
         const form = documen.getElementById('cadastro-filme')
+        const tituloInput = document.getElementById ('titulo')
         const listaFilmesContainer = document.getElementById('lista-filmes')
 
         function removerFilme(indice, elementoDOM) {
@@ -49,8 +47,6 @@
             if (catalogo.length ===0) {
                 listaFilmesCountainer.innerHTML = '<p>nenumfilme cadastrado ainda</p>';
             }
-
-            console.log(`filme no indice ${indice} removido. catalogo atuallizado:` , catalogo);
         }
 
         function renderizarFilme(filme,indice) {
@@ -61,11 +57,69 @@
             const filmeDiv = document.createElement('div');
             filmeDiv.claslist.add('filme-item'); 
 
+            const imagemPoster = document.createElemente('img');
+            imagemPoster.src = filme.poster && filme.poster !== 'N/A'
+                            ?filme.poster
+                            : '' //ADICIONAR LINK
+            imagemPoster.alt = `poster do filme ${filme.titulo}`;
+            imagemPoster.classlist.add('filme-poster');
+
+            const infoDiv = document.creatElement('div');
+
+
             const tituloH3 = document.createElement('h3');
             tituloH3.textContent = filme.sinopse;
 
             const sinopseP = document.createElement('p');
             sinopseP.tectContent = filme.sinopse;
+
+            const removerBotao = document.createElement('button');
+            removerBotao.textcontent = 'remover';
+            removerBotao.classlist.add ('btn-remover');
+
+            removerBotao.addEventListener('click', () => {
+                const indiceAtual = catalogo.findindex(f => f.titulo === filme.titulo);
+                if (indiceAtual > -1) {
+                    removerFilme(indiceAtual, filmeDiv);
+                }
+            });
+
+            infoDiv.appendChild(tituloH3);
+            infoDiv.appendChild(sinopseP);
+            infoDiv.appendChild(removerBotao);
+
+            filmeDiv.appendChild(imagemPoster);
+            filmeDiv.appendChild(infoDiv);
+
+            listaFilmesCountainer.appendChild(filmeDiv);
+        }
+
+        async function adicionarFilme(evento) {
+            evento.preventDefault();
+
+            const titulo = tituloInput.value.trim();
+            if(!titulo) return;
+            const tituloFormatado = encodeURIComponent(titulo);
+            const url = `https://www.omdbapi.com/?apikey=${APY_KEY}&t=${tituloFormatado}`
+            try {
+                const resposta = await fetch(url);
+                const dadosDoFilme = await resposta.json();
+
+                const novoFilme = {
+                    titulo: dadosDoFilme.Title,
+                    sinopse: dadosDoFilme.Plot,
+                    poster: dadosDoFilme.Poster,
+                };
+                
+                catalogo.push(novoFilme);
+                renderizarFilme(novofilme, catalogo.length - 1);
+            } else {
+                alert(`filme nao encontrado na OMDB: "${titulo}".`);
+            } catch (error) {
+                alert('ocorreu um erro ao tentar buscar o filme na API. verifique sua chave.');
+                console.error('erro de fetch:', error);
+            }
+            form.reset();
         }
     </script>
 </body>
