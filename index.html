@@ -16,7 +16,6 @@
             <label for="titulo">titulo do filme:</label>
             <input type="text" id="titulo" required>
         </div>
-        
         <button type="submit">adicionar filme</button>
     </form>
 
@@ -37,21 +36,21 @@
         const listaFilmesContainer = document.getElementById('lista-filmes')
 
         function salvarCatalogo() {
-            localStorage.setItem //----------------------
+            localStorage.setItem ('catalogo', JSON.stringify(catalogo));
         }
+
         function removerFilme(indice, elementoDOM) {
             catalogo.splice(indice,1);
-
+            salvarCatalogo();
             elementoDOM.remove();
-
-            if (catalogo.length ===0) {
-                listaFilmesCountainer.innerHTML = '<p>nenumfilme cadastrado ainda</p>';
+            if (catalogo.length === 0) {
+                listaFilmesContainer.innerHTML = '<p>nenumfilme cadastrado ainda</p>';
             }
         }
 
         function renderizarFilme(filme,indice) {
-            if (catalogo.length ===1 && listaFilmesContainer.querySelector('p'))  {
-                listaFilmesCountainer.innerHTML = '';
+            if (catalogo.length === 1 && listaFilmesContainer.querySelector('p'))  {
+                listaFilmesContainer.innerHTML = '';
             }
 
             const filmeDiv = document.createElement('div');
@@ -59,19 +58,19 @@
 
             const imagemPoster = document.createElemente('img');
             imagemPoster.src = filme.poster && filme.poster !== 'N/A'
-                    ?filme.poster
+                    ? filme.poster
                     : '' //ADICIONAR LINK-----
             imagemPoster.alt = `poster do filme ${filme.titulo}`;
             imagemPoster.classlist.add('filme-poster');
 
             const infoDiv = document.creatElement('div');
-
+            infoDiv.classList.add('filme-info');
 
             const tituloH3 = document.createElement('h3');
-            tituloH3.textContent = filme.sinopse;
+            tituloH3.textContent = filme.titulo;
 
             const sinopseP = document.createElement('p');
-            sinopseP.tectContent = filme.sinopse;
+            sinopseP.tectContent = filme.sinopse || 'sinopse nao disponivel.';
 
             const trailerLink = document.createElement('a');
             const termoBusca = encodeURIComponent(`${filme.titulo} trailer oficial`);
@@ -82,13 +81,12 @@
 
 
             const removerBotao = document.createElement('button');
-            removerBotao.textcontent = 'remover';
-            removerBotao.classlist.add ('btn-remover');
+            removerBotao.textContent = 'remover';
+            removerBotao.classList.add ('btn-remover');
 
             removerBotao.addEventListener('click', () => {
                 const indiceAtual = catalogo.findindex(f => f.titulo === filme.titulo);
-                if (indiceAtual > -1) {
-                    removerFilme(indiceAtual, filmeDiv);
+                if (indiceAtual > -1) removerFilme(indiceAtual, filmeDiv);
                 }
             });
 
@@ -100,7 +98,7 @@
             filmeDiv.appendChild(imagemPoster);
             filmeDiv.appendChild(infoDiv);
 
-            listaFilmesCountainer.appendChild(filmeDiv);
+            listaFilmesContainer.appendChild(filmeDiv);
         }
 
         async function adicionarFilme(evento) {
@@ -132,13 +130,14 @@
                 salvarCatalogo();
                 renderizarFilme(novofilme, catalogo.length - 1);
             } else {
-                alert(`filme nao encontrado na OMDB: "${titulo}".`);
+                alert(`filme nao encontrado: "${titulo}". verifique o nome.`);
             }
             
         } catch (erro) {
                 alert('ocorreu um erro ao tentar buscar o filme na API. verifique sua chave.');
-                console.error('erro de fetch:', erro);
+                console.error('erro:', erro);
             }
+
             form.reset();
         }
 
