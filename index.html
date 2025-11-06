@@ -8,6 +8,43 @@
 </head>
 <body>
 
+    <header class="header">
+        <div class="logo">► FILLMFLEX</div>
+        <nav class="nav-menu">
+            <a href="#">minha lista</a>
+            <a href="#">generos</a>
+            <a href="#">sobre</a>
+            <button clas="menu-toggle">☰</button>
+        </nav>
+    </header>
+
+    <section class="controles-section">
+        <div class="search-bar">
+            <input type="text" placeholder="q buscar filmes..." class="search-input">
+        </div>
+        
+        <select class="fiilter-dropdown" arial-label="genero">
+            <option value="">genero</option>
+            <option value="acao">ação</option>
+            <option value="comedia">comédia</option>
+            </select>
+        
+        <select class="filter-dropdown" arial-label="ordenar por">
+            <option value="default">ordenar</option>
+            <option value="recentes">os mais recentes</option>
+            <option value="avaliacao">melhor avaliação</option>
+        </select>
+    </section>
+
+    <main class="main-content">
+        <div class="lista-filmes">
+
+        </div>
+    </main>
+
+
+    
+
     <h1> catalogo de filmes</h1>
 
     <form id="cadastro-filmes">
@@ -85,9 +122,8 @@
             removerBotao.classList.add ('btn-remover');
 
             removerBotao.addEventListener('click', () => {
-                const indiceAtual = catalogo.findindex(f => f.titulo === filme.titulo);
+                const indiceAtual = catalogo.findIndex(f => f.titulo === filme.titulo);
                 if (indiceAtual > -1) removerFilme(indiceAtual, filmeDiv);
-                }
             });
 
             infoDiv.appendChild(tituloH3);
@@ -139,7 +175,6 @@
             }
 
             form.reset();
-        }
 
         function carregarCatalogo() {
             if (catalogo.lenght > 0) {
