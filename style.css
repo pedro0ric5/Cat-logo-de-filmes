@@ -1,8 +1,8 @@
-  /* --- 1. RESET BÁSICO E CONIGURAÇÕES GLOBAIS --- */
+  /* --- 1. reset basico e configurações globais --- */
 * {
     padding: 0;
     margin: 0;
-    box-sizing: border-box; /* Garante que padding e border não aumentem o tamanho do elemento */
+    box-sizing: border-box; /* garante que padding e border não aumentem o tamanho do elemento */
 }
 
 a {
@@ -10,13 +10,13 @@ a {
     text-decoration: none;
 }
 
-/* --- 2. HEADER E NAVEGAÇÃO */
+/* --- 2. header e navegação */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    position: sticky; /* Pegajoso */
+    position: sticky; /* pegajoso */
     top: 0;
 
     background-color: #1f1f1f;
@@ -29,7 +29,7 @@ header {
 .logo {
     font-size: 1.8em;
     font-weight: bold;
-    color: #00e0b3; /* Cor de destaque (Verde-água) */
+    color: #00e0b3; /* cor de destaque (verde-água) */
 }
 
 .nav-menu a {
@@ -43,7 +43,7 @@ header {
 }
 
 .menu-toggle {
-    display: flex; /* Escondido no desktop */
+    display: flex; /* escondido no desktop */
    
     font-size: 1.5rem;
     background: none;
@@ -54,7 +54,7 @@ header {
     cursor: pointer;
 }
 
-/* --- 3. CONTROLES (Busca e Filtros) --- */
+/* --- 3. controles (busca e filtros) --- */
 .controls-section {
     display: flex;
     justify-content: center;
@@ -62,12 +62,12 @@ header {
     gap: 15px;
     padding: 30px 20px;
     background-color: #121212;
-    flex-wrap: wrap; /* Permite quebras de linhas em telas pequenas */
+    flex-wrap: wrap; /* permite quebras de linhas em telas pequenas */
 }
 
 .search-bar {
     flex-grow: 1;
-    max-width: 400px; /* Limita o tamanho da busca do desktop */
+    max-width: 400px; /* limita o tamanho da busca do desktop */
 }
 
 .search-input, .filter-dropdown {
@@ -82,27 +82,27 @@ header {
     border: 1px solid #444;
 }
 
-/* Estilo para a caixa de seleção */
+/* estilo para a caixa de seleção */
 .filter-dropdown {
     width: auto;
     cursor: pointer;
 }
 
-/* --- 4. LISTA DE FILMES (O Layout Grid Responsivo) --- */
+/* --- 4. lista de filmes (o layout grid responsivo) --- */
 .main-content {
     padding: 20px;
 }
 
 .lista-filmes {
     display: grid;
-    gap: 25px; /* Espaçamento entre os cards */
+    gap: 25px; /* espaçamento entre os cards */
 
-    /* A MÁGICA DO RESPONSIVO: Ajuste automático de colunas */
+    /* a magica do responsivo: ajuste automático de colunas */
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     justify-content: center;
 }
 
-/* --- 5. CARDS DE FILMES --- */
+/* --- 5. cards de filmes --- */
 .card-filme {
     position: relative;
    
@@ -112,11 +112,11 @@ header {
     border-radius: 10px;
 
     transition: translate 0.3s ease;
-    overflow: hidden; /* Garante que o poster não saia da borda arredondada */
+    overflow: hidden; /* garante que o poster não saia da borda arredondada */
 }
 
 .card-filme:hover {
-    transform: translateY(-8px); /* Efeito de elevação sutil do hover */
+    transform: translateY(-8px); /* efeito de elevação sutil do hover */
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7);
 }
 
@@ -124,7 +124,7 @@ header {
     width: 100%;
     height: auto;
     display: block;
-    aspect-ratio: 2/3; /*   Proporção típica de pôsteres de cinema */
+    aspect-ratio: 2/3; /*   proporção típica de pôsteres de cinema */
 }
 
 .avaliação {
@@ -153,7 +153,7 @@ header {
 }
 
 .botao-adicionar {
-    background-color: #00e0b3; /* Cor de destaque */
+    background-color: #00e0b3; /* cor de destaque */
     color: #1f1f1f;
     border: none;
     padding: 8px 15px;
@@ -167,9 +167,9 @@ header {
     background-color: #00c7a0;
 }
 
-/* --- 6.   RESPONSIVIDADE (Ajustes para Telas Menores/Celulares) --- */
+/* --- 6.   responsividade (ajustes para telas menores/celulares) --- */
 @media (max-width: 768px) {
-    /* Header (Ocultar Links no mobile, mostra o botão do menu) */
+    /* Header (ocultar links no mobile, mostra o botão do menu) */
     .nav-menu a {
         display: none;
     }
@@ -178,7 +178,7 @@ header {
         display: block; /* mostra o ícone de menu hamburguer */
     }
 
-    /* Controles (Altera a ordem, a busca fica no topo) */
+    /* controles (altera a ordem, a busca fica no topo) */
     .controls-section {
         flex-direction: column;
         gap: 10px;
@@ -194,9 +194,9 @@ header {
         width: 100%;
     }
 
-    /* Lista de Filmes (Layout com menos colunas para telas menores) */
+    /* lista de filmes (layout com menos colunas para telas menores) */
     .lista-filmes {
-        /* No celular, a largura mínima para o card é maior, forçando 1 ou 2 colunas */
+        /* no celular, a largura mínima para o card é maior, forçando 1 ou 2 colunas */
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     }
 }
