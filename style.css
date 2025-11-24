@@ -1,8 +1,13 @@
-  /* --- 1. reset basico e configurações globais --- */
 * {
     padding: 0;
     margin: 0;
-    box-sizing: border-box; /* garante que padding e border não aumentem o tamanho do elemento */
+    box-sizing: border-box; 
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color:#ffffff
 }
 
 a {
@@ -10,26 +15,22 @@ a {
     text-decoration: none;
 }
 
-/* --- 2. header e navegação */
+
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    position: sticky; /* pegajoso */
+    position: sticky;
     top: 0;
-
     background-color: #1f1f1f;
-   
     padding: 15px 30px;
-
     z-index: 1000;
 }
 
 .logo {
     font-size: 1.8em;
     font-weight: bold;
-    color: #00e0b3; /* cor de destaque (verde-água) */
+    color: #00e0b3;
 }
 
 .nav-menu a {
@@ -43,18 +44,14 @@ header {
 }
 
 .menu-toggle {
-    display: flex; /* escondido no desktop */
-   
+    display: none; 
     font-size: 1.5rem;
     background: none;
-    color: white;
-   
+    color: #ffffff;
     border: none;
-
     cursor: pointer;
 }
 
-/* --- 3. controles (busca e filtros) --- */
 .controls-section {
     display: flex;
     justify-content: center;
@@ -62,61 +59,53 @@ header {
     gap: 15px;
     padding: 30px 20px;
     background-color: #121212;
-    flex-wrap: wrap; /* permite quebras de linhas em telas pequenas */
+    flex-wrap: wrap; 
 }
 
 .search-bar {
     flex-grow: 1;
-    max-width: 400px; /* limita o tamanho da busca do desktop */
+    max-width: 400px; 
 }
 
 .search-input, .filter-dropdown {
-    font-size: 1em;
-    background-color: #2c2c2c;
-    color: white;
-    width: 100%;
-
     padding: 10px 15px;
-   
     border-radius: 20px;
     border: 1px solid #444;
+    background-color: #2c2c2c;
+    color: white;
+    font-size: 1em;
+    width: 100%;
+    
 }
 
-/* estilo para a caixa de seleção */
 .filter-dropdown {
     width: auto;
     cursor: pointer;
 }
 
-/* --- 4. lista de filmes (o layout grid responsivo) --- */
 .main-content {
     padding: 20px;
 }
 
 .lista-filmes {
     display: grid;
-    gap: 25px; /* espaçamento entre os cards */
+    gap: 25px; 
 
-    /* a magica do responsivo: ajuste automático de colunas */
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     justify-content: center;
 }
 
-/* --- 5. cards de filmes --- */
 .card-filme {
-    position: relative;
-   
     background-color: #1f1f1f;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
-
     border-radius: 10px;
-
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
     transition: translate 0.3s ease;
-    overflow: hidden; /* garante que o poster não saia da borda arredondada */
 }
 
 .card-filme:hover {
-    transform: translateY(-8px); /* efeito de elevação sutil do hover */
+    transform: translateY(-8px); 
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7);
 }
 
@@ -124,21 +113,18 @@ header {
     width: 100%;
     height: auto;
     display: block;
-    aspect-ratio: 2/3; /*   proporção típica de pôsteres de cinema */
+    aspect-ratio: 2/3; 
 }
 
 .avaliação {
     position: absolute;
     top: 10px;
     right: 10px;
-   
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 5px 8px;
+    border-radius: 5px;
     font-size: 0.9em;
     font-weight: bold;
-    background-color: rgba(0, 0, 0, 0.7);
-
-    padding: 5px 8px;
-
-    border-radius: 5px;
 }
 
 .card-detalhes {
@@ -148,12 +134,11 @@ header {
 .titulo-filme {
     font-size: 1.1em;
     color: #f0f0f0;
-
     margin-bottom: 10px;
 }
 
 .botao-adicionar {
-    background-color: #00e0b3; /* cor de destaque */
+    background-color: #00e0b3; 
     color: #1f1f1f;
     border: none;
     padding: 8px 15px;
@@ -167,18 +152,17 @@ header {
     background-color: #00c7a0;
 }
 
-/* --- 6.   responsividade (ajustes para telas menores/celulares) --- */
+
 @media (max-width: 768px) {
-    /* Header (ocultar links no mobile, mostra o botão do menu) */
+    
     .nav-menu a {
         display: none;
     }
 
     .menu-toggle {
-        display: block; /* mostra o ícone de menu hamburguer */
+        display: block; 
     }
 
-    /* controles (altera a ordem, a busca fica no topo) */
     .controls-section {
         flex-direction: column;
         gap: 10px;
@@ -194,9 +178,7 @@ header {
         width: 100%;
     }
 
-    /* lista de filmes (layout com menos colunas para telas menores) */
     .lista-filmes {
-        /* no celular, a largura mínima para o card é maior, forçando 1 ou 2 colunas */
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     }
 }
